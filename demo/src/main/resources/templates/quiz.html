@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body>
+    <h1>Question <span th:text="${questionIndex}"></span> of <span th:text="${totalQuestions}"></span></h1>
+    <p th:text="${question.questionText}"></p>
+
+    <form method="post" action="/quiz">
+        <button type="submit" name="answer" value="True">True</button>
+        <button type="submit" name="answer" value="False">False</button>
+    </form>
+
+    <div>
+        <h3>Score: <span th:text="${score}"></span>/<span th:text="${totalQuestions}"></span></h3>
+    </div>
+</body>
+</html>
