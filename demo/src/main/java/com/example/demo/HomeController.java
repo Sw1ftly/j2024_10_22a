@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 
+
 @Controller
 public class HomeController {
 
@@ -23,7 +24,6 @@ public class HomeController {
     // Handle login POST request
     @PostMapping("/login")
     public String login(String email, String password, HttpSession session) {
-        // Simple validation for demo purposes (replace with actual logic)
         if (isEmailValid(email) && isPasswordValid(password)) {
             session.setAttribute("score", 0); // Initialize score
             session.setAttribute("questionIndex", 0); // Start from first question
@@ -47,7 +47,8 @@ public class HomeController {
             return "redirect:/quizComplete"; // Redirect to quiz completion page if all questions answered
         }
 
-        Question currentQuestion = Quiz.getRandomQuestion(); // Get a random question
+        // Get the current sequential question based on questionIndex
+        Question currentQuestion = Quiz.getQuestions().get(questionIndex);
         model.addAttribute("question", currentQuestion);
         model.addAttribute("score", currentScore); // Display score
         model.addAttribute("questionIndex", questionIndex + 1); // Display current question number
@@ -66,6 +67,7 @@ public class HomeController {
         if (questionIndex == null) questionIndex = 0;
         if (currentScore == null) currentScore = 0;
 
+        // Get the current sequential question based on questionIndex
         Question currentQuestion = Quiz.getQuestions().get(questionIndex);
 
         // Check if the answer is correct and update the score
